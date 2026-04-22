@@ -4,7 +4,9 @@ defmodule BackendWeb.FactController do
   alias Backend.Facts
 
   def random(conn, _params) do
-    fact = Facts.random_fact()
-    json(conn, %{fact: fact.content})
+    case Facts.random_fact() do
+      nil -> conn |> put_status(:not_found) |> json(%{error: "No facts available"})
+      fact -> json(conn, %{fact: fact.content})
+    end
   end
 end
