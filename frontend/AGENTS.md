@@ -26,7 +26,25 @@ npm run test:e2e:ui
 ```
 
 - Tests mock the backend API via `page.route()` — the backend does not need to be running.
-- When adding new E2E tests, write the Gherkin scenario in `e2e/features/` first, then generate the Playwright test from it.
+
+## Testing philosophy
+
+Every new user-facing feature or behaviour change should be accompanied by E2E tests. They don't need to land in the same commit, but they should not be left indefinitely — treat missing tests as an open task.
+
+**The workflow:**
+
+1. **Write the Gherkin first.** Add a scenario to the relevant `.feature` file in `e2e/features/` (or create a new one). Scenarios should be written from the user's perspective and describe what the user sees and does, not implementation details.
+
+2. **Generate the Playwright tests from the Gherkin.** Hand the feature file to an AI agent and ask it to produce the corresponding Playwright tests in `e2e/tests/`. Do not wire up `playwright-bdd` or any step-definition tooling — the Gherkin is a human-readable spec, and the agent is the translation layer.
+
+3. **Structure tests as a user journey.** Group tests under `test.describe` blocks that mirror the feature file structure. Use `beforeEach` for shared setup (mock + navigate). Each `test` is a checkpoint in the journey, not a fully isolated unit.
+
+4. **Mock the API.** Use `page.route()` to mock `http://localhost:4000/api/facts/random` (and any future endpoints). Tests must not require a running backend.
+
+**When to add tests:**
+- New component or page → new `.feature` file and matching `.spec.ts`
+- New user interaction (button, form, navigation) → new scenario in the relevant `.feature` file
+- Bug fix involving visible behaviour → add a scenario that would have caught the bug
 
 ## Key dependencies
 
