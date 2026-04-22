@@ -32,3 +32,24 @@ npm install
 npm run dev
 ```
 Frontend runs at http://localhost:5173
+
+## Testing
+
+### Backend
+```bash
+cd backend
+mix test
+```
+
+### Frontend E2E (Playwright)
+```bash
+cd frontend
+
+# Run all tests headless in the terminal
+npm run test:e2e
+
+# Open the Playwright UI (visual test runner)
+npm run test:e2e:ui
+```
+
+The E2E tests mock the backend API, so the backend does not need to be running.

@@ -13,6 +13,21 @@ npm run preview  # preview production build locally
 
 Run `npm run lint` and `npm run build` before considering any frontend task complete.
 
+## E2E Testing (Playwright)
+
+Tests live in `e2e/tests/`. The corresponding Gherkin specs are in `e2e/features/`.
+
+```bash
+# Run all tests headless in the terminal
+npm run test:e2e
+
+# Open the Playwright UI (visual test runner with browser preview)
+npm run test:e2e:ui
+```
+
+- Tests mock the backend API via `page.route()` — the backend does not need to be running.
+- When adding new E2E tests, write the Gherkin scenario in `e2e/features/` first, then generate the Playwright test from it.
+
 ## Key dependencies
 
 | Package | Purpose |

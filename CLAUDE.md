@@ -63,3 +63,24 @@ For the frontend, run:
 npm run lint
 npm run build
 ```
+
+## Testing
+
+### Backend
+```bash
+cd backend
+mix test
+```
+
+### Frontend E2E (Playwright)
+```bash
+cd frontend
+
+# Headless (CI / terminal)
+npm run test:e2e
+
+# Visual UI mode
+npm run test:e2e:ui
+```
+
+E2E tests mock the backend API — no running backend required. Gherkin specs live in `frontend/e2e/features/`, tests in `frontend/e2e/tests/`.
