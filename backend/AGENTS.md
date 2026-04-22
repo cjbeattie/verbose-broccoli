@@ -66,6 +66,17 @@ custom classes must fully style the input
 - To debug test failures, run tests in a specific file with `mix test test/my_test.exs` or run all previously failed tests with `mix test --failed`
 - `mix deps.clean --all` is **almost never needed**. **Avoid** using it unless you have good reason
 
+## Project test requirements
+
+- **Always** add or update tests when making backend changes:
+  - New controller action → add a test in `test/backend_web/controllers/<name>_controller_test.exs` covering the happy path and any error/edge cases (e.g. missing data returns a non-500 status)
+  - New context function → add a test in `test/backend/<context>/<context>_test.exs` covering the happy path and the empty/nil case
+  - Changed response shape or status code → update the corresponding controller test to match
+  - New route → ensure a controller test exercises it end-to-end
+- Use `ConnCase` for controller tests (HTTP layer) and `DataCase` for context/schema tests (DB layer)
+- Seed test data by inserting structs directly with `Repo.insert!/1` — do not rely on seeds or fixtures from other tests
+- Run `mix test` before considering any backend task complete
+
 ## Test guidelines
 
 - **Always use `start_supervised!/1`** to start processes in tests as it guarantees cleanup between tests
