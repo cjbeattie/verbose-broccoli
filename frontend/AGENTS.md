@@ -74,8 +74,11 @@ Every new user-facing feature or behaviour change should be accompanied by E2E t
 
 ## Styling
 
-- Currently uses inline styles (`style={{ ... }}`). Follow the same pattern unless switching to a CSS approach is explicitly requested.
+- Use CSS Modules for all component styles. Each component that needs styles gets a co-located `ComponentName.module.css` file.
+- Import as `import styles from './ComponentName.module.css'` and apply with `className={styles.myClass}`.
+- Do not use inline `style={{ ... }}` props.
 - No CSS-in-JS library is installed.
+- Global styles (resets, CSS variables, typography) live in `src/index.css`.
 
 ## Do not
 

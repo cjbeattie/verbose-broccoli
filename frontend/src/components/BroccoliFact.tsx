@@ -1,4 +1,5 @@
 import { useSuspenseQuery } from "@tanstack/react-query";
+import styles from "./BroccoliFact.module.css";
 
 interface FactResponse {
   fact: string;
@@ -18,7 +19,7 @@ function BroccoliFact() {
 
   return (
     <div>
-      <p style={{ marginTop: "40px", fontSize: "1.2rem", maxWidth: "600px", margin: "40px auto" }}>
+      <p className={styles.fact}>
         {data.fact}
       </p>
       <button onClick={() => refetch()}>Give me another one</button>

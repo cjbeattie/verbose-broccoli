@@ -1,5 +1,6 @@
 import { ErrorBoundary } from "react-error-boundary";
 import BroccoliFact from "./BroccoliFact";
+import styles from "./Broccoli.module.css";
 
 function ErrorFallback() {
   return <p>🥦 The broccoli is unavailable. Please try again later.</p>;
@@ -7,7 +8,7 @@ function ErrorFallback() {
 
 function Broccoli() {
   return (
-    <div style={{ textAlign: "center", marginTop: "100px", fontFamily: "sans-serif" }}>
+    <div className={styles.wrapper}>
       <h1>🥦 The Broccoli Vault</h1>
       <p>Unlock the ancient secrets of broccoli.</p>
       <ErrorBoundary FallbackComponent={ErrorFallback}>
