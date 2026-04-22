@@ -50,6 +50,8 @@ defmodule BackendWeb.Endpoint do
 
   plug Plug.MethodOverride
   plug Plug.Head
+  plug CORSPlug,
+    origin: ["http://localhost:5173"]
   plug Plug.Session, @session_options
   plug BackendWeb.Router
 end
