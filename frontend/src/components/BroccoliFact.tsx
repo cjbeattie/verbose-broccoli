@@ -1,13 +1,17 @@
 import { useSuspenseQuery } from "@tanstack/react-query";
 
-const fetchRandomFact = async (): Promise<string> => {
+interface FactResponse {
+  fact: string;
+}
+
+const fetchRandomFact = async (): Promise<FactResponse> => {
   const response = await fetch("http://localhost:4000/api/facts/random");
   const data = await response.json();
-  return data.fact;
+  return data;
 };
 
 function BroccoliFact() {
-  const { data: fact, refetch } = useSuspenseQuery({
+  const { data, refetch } = useSuspenseQuery({
     queryKey: ["randomFact"],
     queryFn: fetchRandomFact,
   });
@@ -15,7 +19,7 @@ function BroccoliFact() {
   return (
     <div>
       <p style={{ marginTop: "40px", fontSize: "1.2rem", maxWidth: "600px", margin: "40px auto" }}>
-        {fact}
+        {data.fact}
       </p>
       <button onClick={() => refetch()}>Give me another one</button>
     </div>
