@@ -6,8 +6,8 @@ interface FactResponse {
 
 const fetchRandomFact = async (): Promise<FactResponse> => {
   const response = await fetch("http://localhost:4000/api/facts/random");
-  const data = await response.json();
-  return data;
+  if (!response.ok) throw new Error(`HTTP ${response.status}`);
+  return response.json();
 };
 
 function BroccoliFact() {
