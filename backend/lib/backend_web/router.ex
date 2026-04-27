@@ -12,6 +12,7 @@ defmodule BackendWeb.Router do
 
   pipeline :api do
     plug :accepts, ["json"]
+    plug :fetch_cookies
   end
 
   scope "/", BackendWeb do
@@ -23,7 +24,10 @@ defmodule BackendWeb.Router do
   # Other scopes may use custom stacks.
   scope "/api", BackendWeb do
     pipe_through :api
-      get "/facts/random", FactController, :random
+    get "/facts/random", FactController, :random
+    post "/poll", PollController, :create
+    get "/poll/:id", PollController, :show
+    post "/vote", PollController, :vote
   end
 
   # Enable LiveDashboard and Swoosh mailbox preview in development

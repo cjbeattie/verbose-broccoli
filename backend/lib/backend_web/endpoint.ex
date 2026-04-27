@@ -51,7 +51,8 @@ defmodule BackendWeb.Endpoint do
   plug Plug.MethodOverride
   plug Plug.Head
   plug CORSPlug,
-    origin: ["http://localhost:5173"]
+    origin: ["http://localhost:5173"],
+    credentials: true
   plug Plug.Session, @session_options
   plug BackendWeb.Router
 end

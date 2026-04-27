@@ -1,11 +1,14 @@
-import { Suspense } from "react";
-import Broccoli from "./components/Broccoli";
+import { Routes, Route } from "react-router-dom";
+import CreatePoll from "./pages/CreatePoll";
+import PollPage from "./pages/PollPage";
+// import Broccoli from "./components/Broccoli";
 
 function App() {
   return (
-    <Suspense fallback={<p>Loading...</p>}>
-      <Broccoli />
-    </Suspense>
+    <Routes>
+      <Route path="/" element={<CreatePoll />} />
+      <Route path="/:id" element={<PollPage />} />
+    </Routes>
   );
 }
 
