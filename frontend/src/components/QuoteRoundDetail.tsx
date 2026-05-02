@@ -76,10 +76,23 @@ function buildChartData(quantities: number[], offers: Offer[]) {
   });
 }
 
+function yAxisDomain(offers: Offer[]): [number, number] {
+  const allPrices = offers.flatMap((o) => o.pricing?.map((p) => p.price / 100) ?? []);
+  if (allPrices.length === 0) return [0, 1];
+  const min = Math.min(...allPrices);
+  const max = Math.max(...allPrices);
+  const padding = (max - min) * 0.1 || 1;
+  return [
+    Math.floor((min - padding) * 100) / 100,
+    Math.ceil((max + padding) * 100) / 100,
+  ];
+}
+
 function ProjectSection({ project, index }: { project: Project; index: number }) {
   const offersWithPricing = project.offers.filter((o) => o.pricing !== null);
   const offersWithoutPricing = project.offers.filter((o) => o.pricing === null);
   const chartData = buildChartData(project.quantities, offersWithPricing);
+  const [yMin, yMax] = yAxisDomain(offersWithPricing);
 
   return (
     <div style={{ marginBottom: "48px" }}>
@@ -104,6 +117,7 @@ function ProjectSection({ project, index }: { project: Project; index: number })
               tick={{ fontSize: 12 }}
             />
             <YAxis
+              domain={[yMin, yMax]}
               tickFormatter={(v) => `$${v.toFixed(2)}`}
               label={{ value: "Price per unit", angle: -90, position: "insideLeft", offset: 8 }}
               tick={{ fontSize: 12 }}
